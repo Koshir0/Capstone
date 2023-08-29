@@ -33,11 +33,38 @@ class Movie(db.Model):
     title = db.Column(db.String(100), nullable=False)
     release_date = db.Column(db.String(20), nullable=False)
 
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self, new_title, new_release_date):
+        self.title = new_title
+        self.release_date = new_release_date
+        db.session.commit()
+
 class Actor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     gender = db.Column(db.String(10), nullable=False)
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self, new_name, new_age, new_gender):
+        self.name = new_name
+        self.age = new_age
+        self.gender = new_gender
+        db.session.commit()
 
 # if __name__ == '__main__':
 #     app.run(debug=True)

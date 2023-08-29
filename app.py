@@ -64,13 +64,6 @@ def get_movies():
 @app.route('/actors', methods=['POST'])
 @requires_auth(permission='post:actors')
 def add_actor(payload):
-    # data = request.get_json()
-    # name = data['name']
-    # age = data['age']
-    # gender = data['gender']
-    # actor = Actor(name, age, gender)
-    # actors.append(actor)
-    # return jsonify({"message": "Actor added successfully"})
     name = request.form.get('name')
     age = request.form.get('age')
     gender = request.form.get('gender')
@@ -78,8 +71,7 @@ def add_actor(payload):
     if not name or not age or not gender:
         return jsonify({'error': 'Name, age and gender are required'}), 400
     else:
-        db.session.add(actor)
-        db.session.commit()
+        actor.insert()
     return redirect(url_for('index'))
 
 @app.route('/movies', methods=['POST'])
@@ -91,8 +83,7 @@ def add_movie(payload):
     if not title or not release_date:
         return jsonify({'error': 'Title and release_date are required'}), 400
     else:
-        db.session.add(new_movie)
-        db.session.commit()
+        new_movie.insert()
     return redirect(url_for('index'))
 
 @app.route('/actors/<int:actor_id>', methods=['POST','PATCH'])
@@ -106,11 +97,10 @@ def update_actor(actor_id):
     age = data.get('age')
     
     if name:
-        actor.name = name
+        actor.update(name) 
     if age:
-        actor.age = age
+        actor.update(age)
     
-    db.session.commit()
     return redirect(url_for('index'))
 
 @app.route('/movies/<int:movie_id>', methods=['POST','PATCH'])
@@ -124,19 +114,16 @@ def update_movie(movie_id):
     release_date = data.get('release_date')
     
     if title:
-        movie.title = title
+        movie.update(title )
     if release_date:
-        movie.release_date = release_date
-    
-    db.session.commit()
+        movie.update(release_date )
     return redirect(url_for('get_movies'))
 
 @app.route('/actors/<int:actor_id>', methods=['POST','DELETE'])
 def delete_actor(actor_id):
     actor = Actor.query.get(actor_id)
     if actor:
-        db.session.delete(actor)
-        db.session.commit()
+        actor.delete()
     return redirect(url_for('index'))
     # del actors[actor_id]
     # return jsonify({"message": "Actor deleted successfully"})
@@ -145,14 +132,11 @@ def delete_actor(actor_id):
 def delete_movie(movie_id):
     movie = Movie.query.get(movie_id)  
     if movie:
-        db.session.delete(movie)
-        db.session.commit()
+        movie.delete()
     else:
         return jsonify({'error': 'Movie not found'}), 404
     return redirect(url_for('index'))
 
-    # del movies[movie_id]
-    # return jsonify({"message": "Movie deleted successfully"})
 
 
 # Handle 404 Not Found
@@ -165,6 +149,16 @@ def not_found(error):
 def internal_error(error):
     db.session.rollback()
     return jsonify({'error': 'Internal Server Error'}), 500
+
+# Custom 403 Forbidden error handler
+@app.errorhandler(403)
+def forbidden_error(error):
+    return render_template('403.html'), 403
+
+# Custom 401 Unauthorized error handler
+@app.errorhandler(401)
+def unauthorized_error(error):
+    return render_template('401.html'), 401
 
 
 if __name__ == '__main__':
