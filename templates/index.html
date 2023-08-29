@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Movie</title>
+</head>
+<body>
+    <h1>Add a Movie</h1>
+    <form action="{{ url_for('add_movie') }}" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <label for="release_date">Release Date:</label><br>
+        <input type="text" id="release_date" name="release_date"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <h1>Add an Actor</h1>
+    <form action="{{ url_for('add_actor') }}" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" max="100" min="19"><br><br>
+        <label for="gender">gender:</label><br>
+        <input type="text" id="gender" name="gender"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <h2>List of Movies</h2>
+    <ul>
+        {% for movie in movies %}
+            <li>{{ movie.title }} ({{ movie.release_date }})</li>
+            <form action="{{ url_for('update_movie', movie_id=movie.id) }}" method="POST">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" value="{{ movie.title }}"><br>
+                    <label for="release_date">Release Date:</label>
+                    <input type="text" id="release_date" name="release_date" value="{{ movie.release_date }}"><br>
+                    <input type="submit" value="Update Movie">
+                </form>
+            <form action="{{ url_for('delete_movie', movie_id=movie.id) }}" method="POST">
+                    <input type="submit" value="Delete">
+            </form>
+        {% endfor %}
+    </ul>
+    <h2>List of Actor</h2>
+    <ul>
+        {% for actor in actors %}
+            <li>
+                {{ actor.name }} ({{ actor.age }} years old)
+                <form action="{{ url_for('update_actor', actor_id=actor.id) }}" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="{{ actor.name }}"><br>
+                    <label for="age">Age:</label>
+                    <input type="text" id="age" name="age" value="{{ actor.age }}"><br>
+                    <input type="submit" value="Update Actor">
+                </form>
+                <form action="{{ url_for('delete_actor', actor_id=actor.id) }}" method="POST">
+                    <input type="submit" value="Delete">
+            </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
