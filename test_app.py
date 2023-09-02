@@ -59,26 +59,26 @@ class AppTestCase(unittest.TestCase):
 
 
     class CastingAgencyTestCase(unittest.TestCase):
-    def setUp(self):
-        self.app = create_app()
-        self.client = self.app.test_client
-        self.database_name = "casting_agency_test"
-        self.database_path = "postgres://{}/{}".format(
-            'localhost:5432', self.database_name)
-        setup_db(self.app, self.database_path)
+        def setUp(self):
+            self.app = create_app()
+            self.client = self.app.test_client
+            self.database_name = "casting_agency_test"
+            self.database_path = "postgres://{}/{}".format(
+                'localhost:5432', self.database_name)
+            setup_db(self.app, self.database_path)
 
-        # Set up the JWT token
-        self.executive_producer_token = 'your_executive_producer_jwt_token_here'
+            # Set up the JWT token
+            self.executive_producer_token = 'your_executive_producer_jwt_token_here'
 
-    def test_rbac_executive_producer(self):
-        headers = {
-            'Authorization': f'Bearer {self.executive_producer_token}'
-        }
-        response = self.client().get('/movies', headers=headers)
-        data = json.loads(response.data)
+        def test_rbac_executive_producer(self):
+            headers = {
+                'Authorization': f'Bearer {self.executive_producer_token}'
+            }
+            response = self.client().get('/movies', headers=headers)
+            data = json.loads(response.data)
 
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(data['success'])
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(data['success'])
 
 
 if __name__ == '__main__':
