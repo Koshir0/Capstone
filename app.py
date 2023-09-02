@@ -11,7 +11,10 @@ from auth import *
 def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__, instance_relative_config=True)
+  db.app = app
   setup_db(app)
+  db.init_app(app)
+  db.create_all()
   CORS(app)
   return app
 
