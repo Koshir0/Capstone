@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, db, Actor, Movie
 from functools import wraps
-from auth import requires_auth
+from auth import *
 
 def create_app(test_config=None):
   # create and configure the app
@@ -75,7 +75,7 @@ def add_actor(payload):
     return redirect(url_for('index'))
 
 @app.route('/movies', methods=['POST'])
-@requires_auth(permission='post:movies')
+# @requires_auth(permission='post:movies')
 def add_movie(payload):
     title = request.form.get('title')
     release_date = request.form.get('release_date')
@@ -95,11 +95,11 @@ def update_actor(actor_id):
     data = request.form
     name = data.get('name')
     age = data.get('age')
-    
-    if name:
-        actor.update(name) 
-    if age:
-        actor.update(age)
+    actor.update(name, age)
+    # if name:
+    #     actor.update(name) 
+    # if age:
+    #     actor.update(age)
     
     return redirect(url_for('index'))
 
@@ -112,11 +112,11 @@ def update_movie(movie_id):
     data = request.form
     title = data.get('title')
     release_date = data.get('release_date')
-    
-    if title:
-        movie.update(title )
-    if release_date:
-        movie.update(release_date )
+    movie.update(title, release_date )
+    # if title:
+    #     movie.update(title )
+    # if release_date:
+    #     movie.update(release_date )
     return redirect(url_for('get_movies'))
 
 @app.route('/actors/<int:actor_id>', methods=['POST','DELETE'])

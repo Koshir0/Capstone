@@ -60,10 +60,9 @@ class Actor(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def update(self, new_name, new_age, new_gender):
+    def update(self, new_name, new_age):
         self.name = new_name
         self.age = new_age
-        self.gender = new_gender
         db.session.commit()
 
 # if __name__ == '__main__':
