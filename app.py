@@ -3,7 +3,7 @@ import os
 from flask import Flask, request, abort, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import setup_db, db, Actor, Movie
+from models import *
 from functools import wraps
 from auth import *
 
