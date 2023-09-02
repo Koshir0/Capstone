@@ -3,3 +3,4 @@ flask_sqlalchemy
 flask
 jose
 python-jose
+requests
