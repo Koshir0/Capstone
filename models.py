@@ -14,13 +14,13 @@ database_path = 'postgresql://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST,
 db = SQLAlchemy()
 
 
-def setup_db(app, database_path=database_path):
-    with app.app_context():
-        app.config["SQLALCHEMY_DATABASE_URI"] = database_path
-        app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-        db.app = app
-        # app.app_context().push()
-        db.init_app(app)
+def setup_db(application, database_path=database_path):
+    with application.app_context():
+        application.config["SQLALCHEMY_DATABASE_URI"] = database_path
+        application.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+        db.application = application
+        # application.app_context().push()
+        db.init_app(application)
         db.create_all()
 
         print("doneeeeeeeeeeeeeeeeeeee")
