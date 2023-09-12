@@ -42,6 +42,6 @@ API documentation can be found in the `api-reference.md` file. It provides detai
 
 ## Heroku Link
 
-The API is deployed on Heroku. You can access it at [Heroku App Link](https://capstone.herokuapp.com/).
+The API is deployed on Heroku. You can access it at [Heroku App Link](https://blooming-sierra-08778-8428bc24e833.herokuapp.com/).
 
 
