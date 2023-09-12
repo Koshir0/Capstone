@@ -14,7 +14,7 @@ def create_app(test_config=None):
   db.app = app
   setup_db(app)
   db.init_app(app)
-  db.create_all()
+  # db.create_all()
   CORS(app)
   return app
 
