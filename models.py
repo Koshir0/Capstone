@@ -11,7 +11,7 @@ DB_PASSWORD = os.getenv('DB_PASSWORD','killuahh99')
 DB_NAME = os.getenv('DB_PASSWORD','capstone')
 database_path = 'postgresql://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
 
-# db = SQLAlchemy()
+db = SQLAlchemy()
 
 
 def setup_db(app, database_path=database_path):
