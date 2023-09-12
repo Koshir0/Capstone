@@ -3,7 +3,7 @@ import os
 from flask import Flask, request, abort, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import setup_db, Movie, Actor
+from models import *
 # from app.common.models import db
 from functools import wraps
 from auth import *
@@ -12,7 +12,7 @@ def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__, instance_relative_config=True)
   # db.app = app
-  setup_db(app)
+  # setup_db(app)
   # db.init_app(app)
   # db.create_all()
   CORS(app)

@@ -65,6 +65,8 @@ class Actor(db.Model):
         self.age = new_age
         db.session.commit()
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    setup_db(app)
+    app.run(debug=True)
+
 
