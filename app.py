@@ -165,7 +165,8 @@ def unauthorized_error(error):
     return render_template('401.html'), 401
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+app.listen(process.env.PORT || 5432)
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
 
