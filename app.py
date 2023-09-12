@@ -48,24 +48,28 @@ def requires_role(*allowed_roles):
     return decorator
 
 @app.route('/')
+@requires_auth
 def index():
     movies = Movie.query.all()
     actors = Actor.query.all()
     return render_template('index.html', movies=movies, actors=actors) 
 
 @app.route('/actors', methods=['GET'])
+@requires_auth
 def get_actors():
     actors = Actor.query.all()
     actor_list = [{"name": actor.name, "age": actor.age, "gender": actor.gender} for actor in actors]
     return jsonify({"actors": actor_list})
 
 @app.route('/movies', methods=['GET'])
+@requires_auth
 def get_movies():
     movies = Movie.query.all()
     movie_list = [{"title": movie.title, "release_date": movie.release_date} for movie in movies]
     return jsonify({"movies": movie_list})
 
 @app.route('/actors', methods=['POST'])
+@requires_auth
 @requires_auth(permission='post:actors')
 def add_actor(payload):
     name = request.form.get('name')
@@ -79,6 +83,7 @@ def add_actor(payload):
     return redirect(url_for('index'))
 
 @app.route('/movies', methods=['POST'])
+@requires_auth
 @requires_auth(permission='post:movies')
 def add_movie(payload):
     title = request.form.get('title')
@@ -91,6 +96,7 @@ def add_movie(payload):
     return redirect(url_for('index'))
 
 @app.route('/actors/<int:actor_id>', methods=['POST','PATCH'])
+@requires_auth
 def update_actor(actor_id):
     actor = Actor.query.get(actor_id)
     if not actor:
@@ -108,6 +114,7 @@ def update_actor(actor_id):
     return redirect(url_for('index'))
 
 @app.route('/movies/<int:movie_id>', methods=['POST','PATCH'])
+@requires_auth
 def update_movie(movie_id):
     movie = Movie.query.get(movie_id)
     if not movie:
@@ -124,6 +131,7 @@ def update_movie(movie_id):
     return redirect(url_for('get_movies'))
 
 @app.route('/actors/<int:actor_id>', methods=['POST','DELETE'])
+@requires_auth
 def delete_actor(actor_id):
     actor = Actor.query.get(actor_id)
     if actor:
@@ -133,6 +141,7 @@ def delete_actor(actor_id):
     # return jsonify({"message": "Actor deleted successfully"})
 
 @app.route('/movies/<int:movie_id>', methods=['POST','DELETE'])
+@requires_auth
 def delete_movie(movie_id):
     movie = Movie.query.get(movie_id)  
     if movie:
