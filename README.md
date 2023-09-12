@@ -40,8 +40,8 @@ The API includes three roles:
 
 API documentation can be found in the `api-reference.md` file. It provides details about available endpoints, request formats, and expected responses.
 
-## Heroku Link
+## Render Link
 
-The API is deployed on Heroku. You can access it at [Heroku App Link](https://blooming-sierra-08778-8428bc24e833.herokuapp.com/).
+The API is deployed on Render. You can access it at [Render App Link](https://capstone-ox94.onrender.com).
 
 
