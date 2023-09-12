@@ -1,4 +1,4 @@
-set AUTH0_DOMAIN='dev-bck285lacrwuo4mg.us.auth0.com'
-set ALGORITHMS=['RS256']
-set API_AUDIENCE='menu'
+export AUTH0_DOMAIN='dev-bck285lacrwuo4mg.us.auth0.com'
+export ALGORITHMS=['RS256']
+export API_AUDIENCE='menu'
 

@@ -79,7 +79,7 @@ def add_actor(payload):
     return redirect(url_for('index'))
 
 @app.route('/movies', methods=['POST'])
-# @requires_auth(permission='post:movies')
+@requires_auth(permission='post:movies')
 def add_movie(payload):
     title = request.form.get('title')
     release_date = request.form.get('release_date')
